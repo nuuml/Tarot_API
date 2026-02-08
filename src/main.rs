@@ -13,7 +13,7 @@ use tokio::net::TcpListener;
 
 #[tokio::main]
 async fn main() {
-    let message = "bitch, please";
+    let message = "Welcome to the Tarot API";
 
     let app = Router::new()
         .route("/", get(move || async move { message }))
