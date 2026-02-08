@@ -1,5 +1,7 @@
 use serde::Serialize;
-#[derive(PartialEq, Eq, Clone, Copy, Debug, Serialize)]
+use strum_macros::EnumIter;
+
+#[derive(PartialEq, Eq, Clone, Copy, Debug, Serialize, EnumIter)]
 pub enum Suit {
     Pentacles,
     Swords,
@@ -7,7 +9,7 @@ pub enum Suit {
     Wands
 }
 
-#[derive(PartialEq, Eq, Clone, Copy, Debug, Serialize)]
+#[derive(PartialEq, Eq, Clone, Copy, Debug, Serialize, EnumIter)]
 pub enum MinorRank {
     Ace,
     Two,
@@ -25,7 +27,7 @@ pub enum MinorRank {
     King,
 }
 
-#[derive(PartialEq, Eq, Clone, Copy, Debug, Serialize)]
+#[derive(PartialEq, Eq, Clone, Copy, Debug, Serialize, EnumIter)]
 pub enum MajorArcana {
     TheFool,
     TheMagician,
