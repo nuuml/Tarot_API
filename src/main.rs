@@ -1,5 +1,6 @@
 mod card;
 mod deck;
+mod route_functions;
 
 use deck::Deck;
 use card::Card;
@@ -17,14 +18,9 @@ async fn main() {
 
     let app = Router::new()
         .route("/", get(move || async move { message }))
-        .route("/draw", get(draw_card));
+        .route("/draw", get(route_functions::draw_card))
+        .route("/customDraw", get(route_functions::draw_card));
 
     let listener = TcpListener::bind("127.0.0.1:3000").await.unwrap();
     axum::serve(listener, app).await.unwrap();
-}
-
-async fn draw_card() -> Json<Option<Card>> {
-    let mut deck = Deck::new();
-    deck.shuffle();
-    Json(deck.draw())
 }
