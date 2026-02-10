@@ -53,6 +53,12 @@ pub enum MajorArcana {
     TheWorld
 }
 
+#[derive(PartialEq, Eq, Clone, Copy, Debug, Serialize, EnumIter)]
+pub enum Orientation {
+    Upright,
+    Reversed
+}
+
 impl MajorArcana {
     pub fn number(self) -> u8 {
         match self {
@@ -108,6 +114,32 @@ pub enum Card {
     Minor  {
         suit: Suit,
         rank: MinorRank,
+        orientation: Orientation,
     },
-    Major(MajorArcana),
+    Major {
+        major_arcana: MajorArcana,
+        orientation: Orientation,
+    },
+}
+
+impl Card {
+    pub fn with_random_orientation<R: rand::Rng>(self, rng: &mut R) -> Self {
+        let orientation = if rng.gen_bool(0.33) {
+            Orientation::Reversed
+        } else {
+            Orientation::Upright
+        };
+
+        match self {
+            Card::Minor { suit, rank, .. } => Card::Minor {
+                suit,
+                rank,
+                orientation,
+            },
+            Card::Major { major_arcana, .. } => Card::Major {
+                major_arcana,
+                orientation,
+            },
+        }
+    }
 }
