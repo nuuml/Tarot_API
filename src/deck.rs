@@ -21,6 +21,14 @@ impl Deck {
         Deck { cards }
     }
 
+    pub fn new_major() -> Self {
+        let mut cards = Vec::with_capacity(78);
+        for major in card::MajorArcana::iter() {
+            (cards).push(Card::Major{ major_arcana: major.clone(), orientation: card::Orientation::Upright });
+        }
+        Deck { cards }
+    }
+
     pub fn shuffle(&mut self) {
         let mut rng = rand::thread_rng();
 

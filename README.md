@@ -6,15 +6,17 @@ Simple server to allow consumers to retrieve Tarot Card draws.
 
 - `{APIRoot}/draw` - will draw a single card from a standard 78 card Tarot deck
   - each draw will generate a new deck
+  - reversed cards
+  - options
+    - number drawn
+    - only major arcana
 
 ### Roadmap:
 
 - `{APIRoot}/customDraw` - will allow a consumer to pass parameters to modify their draw
   - options may include
-    - number of cards drawn
     - pattern of draw including skips
-    - custom decks
-- reversed cards
+
 - authentication
 
 ### About
