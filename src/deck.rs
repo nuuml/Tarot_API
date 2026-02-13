@@ -1,6 +1,5 @@
 use crate::card;
 use crate::card::{Card, };
-use rand::{rng};
 use rand::seq::SliceRandom;
 use strum::IntoEnumIterator;
 
@@ -30,7 +29,7 @@ impl Deck {
     }
 
     pub fn shuffle(&mut self) {
-        let mut rng = rand::thread_rng();
+        let mut rng = rand::rng();
 
         self.cards.shuffle(&mut rng);
 

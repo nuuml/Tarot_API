@@ -18,7 +18,7 @@ Simple server to allow consumers to retrieve Tarot Card draws.
     - pattern of draw including skips
 
 - authentication
-
+ 
 ### About
 This project is primarily for my own edification. I am learning Rust through doing several small projects in order to improve my skillsets. 
 

@@ -2,12 +2,9 @@ mod card;
 mod deck;
 mod services;
 
-use deck::Deck;
-use card::Card;
 use axum::{
     routing::get,
     routing::post,
-    Json,
     Router
 };
 use tokio::net::TcpListener;

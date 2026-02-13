@@ -124,7 +124,7 @@ pub enum Card {
 
 impl Card {
     pub fn with_random_orientation<R: rand::Rng>(self, rng: &mut R) -> Self {
-        let orientation = if rng.gen_bool(0.33) {
+        let orientation = if rng.random_bool(0.33) {
             Orientation::Reversed
         } else {
             Orientation::Upright
