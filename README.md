@@ -10,15 +10,16 @@ Simple server to allow consumers to retrieve Tarot Card draws.
   - options
     - number drawn
     - only major arcana
+  - authentication
 
 ### Roadmap:
 
 - `{APIRoot}/customDraw` - will allow a consumer to pass parameters to modify their draw
   - options may include
     - pattern of draw including skips
+- logging
+- persistent auth keys
 
-- authentication
- 
 ### About
 This project is primarily for my own edification. I am learning Rust through doing several small projects in order to improve my skillsets. 
 
