@@ -13,11 +13,14 @@ use axum::{
 };
 use tokio::net::TcpListener;
 use auth::TokenStore;
+use env_logger;
+use log::info;
 
 #[tokio::main]
 async fn main() {
+    env_logger::init();
     let message = "Welcome to the Tarot API";
-    
+    info!("{}", message);
     let token_store = TokenStore::new();
     
     let protected_routes = Router::new()

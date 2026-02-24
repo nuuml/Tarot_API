@@ -6,6 +6,8 @@ use axum::{
 };
 use std::sync::{Arc, RwLock};
 use std::collections::HashSet;
+use log;
+use log::info;
 
 #[derive(Clone)]
 pub struct TokenStore {
@@ -54,13 +56,18 @@ pub async fn validate_token(
                 if store.is_valid(token) {
                     Ok(next.run(request).await)
                 } else {
+                    info!("Invalid token provided");
                     Err(StatusCode::UNAUTHORIZED)
                 }
             } else {
+                info!("Invalid token provided");
                 Err(StatusCode::INTERNAL_SERVER_ERROR)
             }
         }
-        _ => Err(StatusCode::UNAUTHORIZED),
+        _ => {
+            info!("auth: missing or invalid Authorization header");
+            Err(StatusCode::UNAUTHORIZED)
+        }
     }
 }
 
@@ -68,11 +75,11 @@ pub fn generate_token() -> String {
     use rand::Rng;
     const CHARSET: &[u8] = b"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     const TOKEN_LEN: usize = 32;
-    let mut rng = rand::thread_rng();
+    let mut rng = rand::rng();
 
     (0..TOKEN_LEN)
         .map(|_| {
-            let idx = rng.gen_range(0..CHARSET.len());
+            let idx = rng.random_range(0..CHARSET.len());
             CHARSET[idx] as char
         })
         .collect()
