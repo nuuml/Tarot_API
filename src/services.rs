@@ -1,4 +1,4 @@
-use axum::{ Json};
+use axum::{ Json };
 use crate::card::Card;
 use serde::Deserialize;
 use crate::deck::Deck;
@@ -21,10 +21,14 @@ pub async fn draw_card_with_options(
     deck.shuffle();
 
     let draws = payload.number.unwrap_or(1);
+    let skips = payload.skips.unwrap_or(0);
 
     let mut output: Vec<Card> = Vec::new();
 
     for _ in 0..draws {
+        for _ in 0..skips {
+            deck.draw();
+        }
         if let Some(card) = deck.draw() {
             output.push(card);
         } else {
@@ -39,4 +43,5 @@ pub async fn draw_card_with_options(
 pub struct DrawOptions {
     number: Option<usize>,
     major_only: bool,
+    skips: Option<usize>,
 }
