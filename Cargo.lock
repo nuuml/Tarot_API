@@ -7,11 +7,13 @@ name = "Tarot_API"
 version = "0.1.0"
 dependencies = [
  "axum",
+ "dotenv",
  "env_logger",
  "hyper",
  "log",
  "rand",
  "serde",
+ "serde_json",
  "strum",
  "strum_macros",
  "tokio",
@@ -158,6 +160,12 @@ name = "colorchoice"
 version = "1.0.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b05b61dc5112cbb17e4b6cd61790d9845d13888356391624cbe7e41efeac1e75"
+
+[[package]]
+name = "dotenv"
+version = "0.15.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "77c90badedccf4105eca100756a0b1289e191f6fcbdadd3cee1d2f614f97da8f"
 
 [[package]]
 name = "env_filter"

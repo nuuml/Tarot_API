@@ -12,11 +12,12 @@ Simple server to allow consumers to retrieve Tarot Card draws.
     - only major arcana
     - pattern of draw including skips
 - authentication
+  - persistent tokens across sessions
 - logging
 
 ### Roadmap:
 
-- persistent auth keys
+- token rotation
 
 ### About
 This project is primarily for my own edification. I am learning Rust through doing several small projects in order to improve my skillsets. 

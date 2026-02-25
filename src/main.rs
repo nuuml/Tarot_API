@@ -14,14 +14,28 @@ use axum::{
 use tokio::net::TcpListener;
 use auth::TokenStore;
 use env_logger;
-use log::info;
+use log::{error, info};
+use dotenv::dotenv;
+use std::env;
 
 #[tokio::main]
 async fn main() {
     env_logger::init();
     let message = "Welcome to the Tarot API";
     info!("{}", message);
-    let token_store = TokenStore::new();
+    dotenv().ok();
+
+
+    let token_store_path = env::var("TOKEN_STORE_PATH")
+        .unwrap_or_else(|_| "data/tokens.json".to_string());
+    let token_store = match TokenStore::new(token_store_path.into()) {
+        Ok(store) => store,
+        Err(err) => {
+            error!("Failed to initialize token store: {err}");
+            std::process::exit(1);
+        }
+    };
+
     
     let protected_routes = Router::new()
         .route("/draw", get(services::draw_card))
