@@ -1,8 +1,6 @@
-mod card;
-mod deck;
-mod services;
+mod models;
+mod handlers;
 mod auth;
-mod admin;
 
 use axum::{
     routing::get,
@@ -25,7 +23,6 @@ async fn main() {
     info!("{}", message);
     dotenv().ok();
 
-
     let token_store_path = env::var("TOKEN_STORE_PATH")
         .unwrap_or_else(|_| "data/tokens.json".to_string());
     let token_store = match TokenStore::new(token_store_path.into()) {
@@ -36,17 +33,16 @@ async fn main() {
         }
     };
 
-    
     let protected_routes = Router::new()
-        .route("/draw", get(services::draw_card))
-        .route("/customDraw", post(services::draw_card_with_options))
+        .route("/draw", get(handlers::draw_card))
+        .route("/customDraw", post(handlers::draw_card_with_options))
         .layer(middleware::from_fn(auth::validate_token))
         .layer(Extension(token_store.clone()));
     
     let public_routes = Router::new()
         .route("/", get(move || async move { message }))
-        .route("/admin/token/create", post(admin::create_token))
-        .route("/admin/token/revoke", post(admin::revoke_token))
+        .route("/admin/token/create", post(handlers::create_token))
+        .route("/admin/token/revoke", post(handlers::revoke_token))
         .with_state(token_store);
 
     let app = Router::new()

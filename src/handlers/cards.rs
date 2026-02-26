@@ -1,9 +1,8 @@
-use axum::{ Json };
-use crate::card::Card;
+use axum::Json;
 use serde::Deserialize;
-use crate::deck::Deck;
-use log;
 use log::info;
+use crate::models::{Card, Deck};
+
 pub async fn draw_card() -> Json<Option<Card>> {
     let mut deck = Deck::new();
     deck.shuffle();
@@ -45,7 +44,6 @@ pub async fn draw_card_with_options(
     );
     Json(output)
 }
-
 
 #[derive(Deserialize, Debug)]
 pub struct DrawOptions {
